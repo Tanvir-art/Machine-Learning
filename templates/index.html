@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Real Time Wheat Disease Detection </title>
+    <style>
+        body,
+        html {
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-position: center center;
+            background-image: url("static/background.jpg");
+        }
+
+        .container {
+            background-image: url("static/background.jpg");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 100%;
+            width: 100%;
+            filter: blur(0.5px) brightness(0.55);
+            /* Adding blur background image */
+        }
+
+        .headertext {
+            position: absolute;
+            left: 3%;
+            top: 0.2%;
+            width: 70%;
+            color: white;
+            font-weight: bold;
+            /* background-color: rgba(256 , 256,256,0.5); */
+            font-size: 30px;
+        }
+
+        .imgupload {
+            position: absolute;
+            background-color: rgba(256, 256, 256, 0.5);
+            padding: 15px;
+            top: 26%;
+            left: 3%;
+            width: 38%;
+        }
+
+        .imguploadtext {
+            background-color: rgba(256, 256, 256, 0.5);
+            padding: 5px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .showimg {
+            position: absolute;
+            background-color: rgba(256, 256, 256, 0.8);
+            padding: 3px;
+            top: 25%;
+            left: 45%;
+            color: brown;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .result {
+            position: absolute;
+            background-color: rgba(256, 256, 256, 0.5);
+            top: 75%;
+            left: 3%;
+            padding: 15px;
+            width: 38%;
+        }
+        .resulttext{
+            font-size: 20px;
+            font-weight: bold;
+            color: black;
+        }
+
+        .drop-container {
+            position: relative;
+            display: flex;
+            gap: 5px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 80px;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: rgb(255, 255, 255);
+            border: 2px dashed #555;
+            color: #444;
+            cursor: pointer;
+            transition: border .2s ease-in-out;
+        }
+
+        .drop-container:hover {
+            transition: transform .2s ease;
+            border-color: #111;
+        }
+
+        .drop-container:hover .drop-title {
+            color: rgb(14, 12, 12);
+            transition: transform .2s ease;
+        }
+
+        .drop-title {
+            color: rgb(19, 19, 19);
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            transition: color .2s ease-in-out;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container"></div>
+    <div class="headertext">
+        <h2> Real Time WHEAT DISEASE PREDICTION Using DEEP LEARNING </h2>
+    </div>
+    <!-- Image upload form -->
+    <div class="imgupload">
+        <p class="imguploadtext">UPLOAD IMAGE</p>
+        <!-- This is for image upload messages such as image upload successfully or not etc..-->
+    <p>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul>
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+    </p>
+        <form method="post" action="/" enctype="multipart/form-data">
+            <dl>
+                <p>
+                    <!--  <input type="file" name="file" class="form-control" autocomplete="off" required> -->
+                    <label for="images" class="drop-container">
+                        <span class="drop-title">Drop files here</span>
+                        or
+                        <input type="file" name="file" id="images" autocomplete="off" required>
+                    </label>
+                </p>
+            </dl>
+            <p>
+                <input type="submit" value="Submit" class="btn btn-info">
+            </p>
+        </form>
+    </div>
+
+    <div class="showimg">
+        <!-- Upload Image display -->
+        <!-- imagefilename -> image file name will be collected from main.py file -->
+        <p>UPLOADED IMAGE</p>
+        <img width="720px" height="400px" src="static/images/{{ imagefilename }}">
+    </div>
+    <div class="result">
+        <p class="imguploadtext">DETECTED DISEASE</p>
+        <p class="resulttext"> {{ result }}</p>
+    </div>
+
+</body>
+
+</html>
